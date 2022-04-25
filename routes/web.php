@@ -13,17 +13,21 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::redirect('/', 'login');
+Route::get('home',function () {
+    return view('home');
 });
 
 Auth::routes();
 
 
 
+Route::get('/admin', 'AdminController@index')->name('admin');
+
 Route::middleware( ['role:admin'])->prefix('admin_panel')->group( function () {
     Route::get('/',[\App\Http\Controllers\Admin\HomeController::class,'index'])->name('homeAdmin');
     Route::resource('category', \App\Http\Controllers\Admin\CategoryController::class);
     Route::resource('post', \App\Http\Controllers\Admin\PostController::class);
+    Route::resource('user', \App\Http\Controllers\Admin\UserController::class);
 
 });

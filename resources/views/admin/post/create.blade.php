@@ -33,7 +33,7 @@
                             <form action="{{route('post.store')}}" method="POST">
                                 @csrf
                                 <div class="card-body">
-                                    <div class="form-group">
+                                    <div class="form-group col-sm-12">
                                         <label for="exampleInputEmail1">Post Name</label>
                                         <input type="text" name="title" class="form-control" id="exampleInputEmail1"
                                                placeholder="Enter category name" required>
@@ -59,10 +59,10 @@
                                         <img src="" alt="" class="img-uploaded" style="display: block; width: 300px">
                                         <input type="text" name="img" class="form-control" id="feature_image"
                                                name="feature_image" value="" readonly>
-                                        <button href="" class="popup_selector btn btn-primary" data-inputid="feature_image">Выбрать изображение</button>
+                                        <button href="" class="popup_selector btn btn-primary m-2" data-inputid="feature_image">Выбрать изображение</button>
                                     </div>
                                     <div class="card-footer">
-                                        <button type="submit" class="btn btn-primary">Create</button>
+                                        <button type="submit" class="btn btn-primary ">Create</button>
                                     </div>
                                 </div>
                             </form>

@@ -33,8 +33,8 @@
                             <form action="{{route('post.update',$post['id'])}}" method="POST">
                                 @csrf
                                 @method('PUT')
-                                <div class="card-body">
-                                    <div class="form-group">
+                                <div class="card-body col-sm-12">
+                                    <div class="form-group col-sm-12">
                                         <label for="exampleInputEmail1">Post Name</label>
                                         <input type="text" value="{{$post['title']}}" name="title" class="form-control"
                                                id="exampleInputEmail1"
@@ -42,7 +42,7 @@
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <div class="form-group col-sm-6">
+                                    <div class="form-group col-sm-3">
                                         <label>Select Category</label>
                                         <select name="cat_id" class="form-control">
                                             @foreach($categories as $category)
@@ -59,13 +59,16 @@
                                     <textarea name="text" class="editor">{{$post['text']}} </textarea>
                                 </div>
 
-                                <div class="form-group">
+                                <div class="form-group col-sm-12">
                                     <label for="feature_image">Изображение статьи</label>
                                     <img src="{{ $post['img'] }}" alt="" class="img-uploaded"
                                          style="display: block; width: 300px">
                                     <input type="text" value="{{ $post['img'] }}" name="img" class="form-control"
                                            id="feature_image" name="feature_image" value="" readonly>
-                                    <a href="" class="popup_selector" data-inputid="feature_image">Выбрать изображение</a>
+                                    <button href="" class="popup_selector btn btn-primary m-2" data-inputid="feature_image">Выбрать изображение</button>
+                                </div>
+                                <div class="card-footer">
+                                    <button type="submit" class="btn btn-primary">Create</button>
                                 </div>
                             </form>
                         </div>

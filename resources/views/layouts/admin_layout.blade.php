@@ -27,8 +27,7 @@
     <link rel="stylesheet" href="{{asset('admin/plugins/daterangepicker/daterangepicker.css')}}">
     <!-- summernote -->
     <link rel="stylesheet" href="{{asset('/admin/dist/css/colorbox.css')}}">
-    <link rel="stylesheet" href="{{asset('public/packages/barryvdh/elfinder/css/elfinder.full.css')}}">
-
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
 
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
@@ -54,26 +53,50 @@
     <!-- Main Sidebar Container -->
     <aside class="main-sidebar sidebar-dark-primary elevation-4">
         <!-- Brand Logo -->
-        <a href="index3.html" class="brand-link">
-            <img src="/admin/dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
+        <a href="{{route('homeAdmin')}}" class="brand-link">
+            <img src="/admin/dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
+                 style="opacity: .8">
             <span class="brand-text font-weight-light">Admin Panel</span>
         </a>
 
         <!-- Sidebar -->
-        <div class="sidebar os-host os-theme-light os-host-overflow os-host-overflow-y os-host-resize-disabled os-host-scrollbar-horizontal-hidden os-host-transition"><div class="os-resize-observer-host observed"><div class="os-resize-observer" style="left: 0px; right: auto;"></div></div><div class="os-size-auto-observer observed" style="height: calc(100% + 1px); float: left;"><div class="os-resize-observer"></div></div><div class="os-content-glue" style="margin: 0px -8px; width: 249px; height: 222px;"></div><div class="os-padding"><div class="os-viewport os-viewport-native-scrollbars-invisible" style="overflow-y: scroll;"><div class="os-content" style="padding: 0px 8px; height: 100%; width: 100%;">
+        <div
+            class="sidebar os-host os-theme-light os-host-overflow os-host-overflow-y os-host-resize-disabled os-host-scrollbar-horizontal-hidden os-host-transition">
+            <div class="os-resize-observer-host observed">
+                <div class="os-resize-observer" style="left: 0px; right: auto;"></div>
+            </div>
+            <div class="os-size-auto-observer observed" style="height: calc(100% + 1px); float: left;">
+                <div class="os-resize-observer"></div>
+            </div>
+            <div class="os-content-glue" style="margin: 0px -8px; width: 249px; height: 222px;"></div>
+            <div class="os-padding">
+                <div class="os-viewport os-viewport-native-scrollbars-invisible" style="overflow-y: scroll;">
+                    <div class="os-content" style="padding: 0px 8px; height: 100%; width: 100%;">
                         <!-- Sidebar user panel (optional) -->
                         <div class="user-panel mt-3 pb-3 mb-3 d-flex">
-                            <div class="image">
-                                <img src="/admin/dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
+                            <div class="info" style="color: white; display: inline-block" >
+                                <i class="nav-icon fas fa-user"></i>
                             </div>
-                            <div class="info">
+                            <div class="info"  style="display: inline-block">
                                 <a href="#" class="d-block">{{\Illuminate\Support\Facades\Auth::user()->name}}</a>
+                            </div>
+                            <div class="info d-flex">
+                                <a  href="{{ route('logout') }}"
+                                   onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">
+                                    <i class="fas fa-thin fa-arrow-right-from-bracket"></i>
+                                </a>
+
+                                <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                    @csrf
+                                </form>
                             </div>
                         </div>
 
                         <!-- Sidebar Menu -->
                         <nav class="mt-2">
-                            <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+                            <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
+                                data-accordion="false">
                                 <!-- Add icons to the links using the .nav-icon class
                                      with font-awesome or any other icon font library -->
                                 <li class="nav-item ">
@@ -126,6 +149,27 @@
                                         </li>
                                     </ul>
                                 </li>
+                                <li class="nav-item ">
+                                    <a href="#" class="nav-link">
+                                        <i class="nav-icon fas fa-align-left"></i>
+                                        <p>
+                                            Users
+                                            <i class="right fas fa-angle-left"></i>
+                                        </p>
+                                    </a>
+                                    <ul class="nav nav-treeview">
+                                        <li class="nav-item">
+                                            <a href="{{route('user.index')}}" class="nav-link">
+                                                <p>All User</p>
+                                            </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a href="{{route('user.create')}}" class="nav-link">
+                                                <p>Create User</p>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>
 
                             </ul>
                         </nav>
@@ -134,9 +178,13 @@
                 </div>
             </div>
             <div class="os-scrollbar os-scrollbar-horizontal os-scrollbar-unusable os-scrollbar-auto-hidden">
-                <div class="os-scrollbar-track"><div class="os-scrollbar-handle" style="width: 100%; transform: translate(0px, 0px);">
+                <div class="os-scrollbar-track">
+                    <div class="os-scrollbar-handle" style="width: 100%; transform: translate(0px, 0px);">
 
-                    </div></div></div><div class="os-scrollbar os-scrollbar-vertical os-scrollbar-auto-hidden">
+                    </div>
+                </div>
+            </div>
+            <div class="os-scrollbar os-scrollbar-vertical os-scrollbar-auto-hidden">
                 <div class="os-scrollbar-track">
                     <div class="os-scrollbar-handle" style="height: 16.4091%; transform: translate(0px, 0px);">
 
@@ -161,53 +209,14 @@
     <!-- /.control-sidebar -->
 </div>
 <!-- ./wrapper -->
-
-{{--
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.colorbox/1.6.4/jquery.colorbox-min.js"></script>
---}}
-<script src="{{asset('admin/plugins/bs-custom-file-input/bs-custom-file-input.min.js')}}"></script>
-
-<script>
-$.widget.bridge('uibutton', $.ui.button)
-<!-- jQuery -->
-</script>
 <script src="{{asset('admin/plugins/jquery/jquery.js')}}"></script>
-
-<!-- jQuery UI 1.11.4 -->
 <script src="{{asset('admin/plugins/jquery-ui/jquery-ui.js')}}"></script>
-<!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
 <script type="text/javascript" src="{{asset('/packages/barryvdh/elfinder/js/standalonepopup.js')}}"></script>
-<script src="https://cdn.tiny.cloud/1/b10azbt9a5j5j6xgav88ywdr129t74d1ddw75vnxfpwb00l2/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+<script src="https://cdn.tiny.cloud/1/b10azbt9a5j5j6xgav88ywdr129t74d1ddw75vnxfpwb00l2/tinymce/5/tinymce.min.js"
+        referrerpolicy="origin"></script>
 <script type="text/javascript" src="{{asset('/admin/dist/js/jquery.colorbox-min.js')}}"></script>
-
 <script src="{{asset('admin/admin.js')}}"></script>
-
-<!-- Bootstrap 4 -->
-<script src="{{asset('admin/plugins/bootstrap/js/bootstrap.bundle.js')}}"></script>
-<!-- ChartJS -->
-<script src="{{asset('admin/plugins/chart.js/Chart.js')}}"></script>
-<!-- Sparkline -->
-<script src="{{asset('admin/plugins/sparklines/sparkline.js')}}"></script>
-<!-- JQVMap -->
-<script src="{{asset('admin/plugins/jqvmap/jquery.vmap.js')}}"></script>
-<script src="{{asset('admin/plugins/jqvmap/maps/jquery.vmap.usa.js')}}"></script>
-<!-- jQuery Knob Chart -->
-<script src="{{asset('admin/plugins/jquery-knob/jquery.knob.js')}}"></script>
-
-<!-- daterangepicker -->
-<script src="{{asset('admin/plugins/moment/moment.js')}}"></script>
-<script src="{{asset('admin/plugins/daterangepicker/daterangepicker.js')}}"></script>
-<!-- Tempusdominus Bootstrap 4 -->
-<script src="{{asset('admin/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.js')}}"></script>
-<!-- Summernote -->
-<script src="{{asset('admin/plugins/summernote/summernote-bs4.js')}}"></script>
-<!-- overlayScrollbars -->
-<script src="{{asset('admin/plugins/overlayScrollbars/js/jquery.overlayScrollbars.js')}}"></script>
-<!-- AdminLTE App -->
 <script src="{{asset('admin/dist/js/adminlte.js')}}"></script>
-<!-- AdminLTE for demo purposes -->
-<script src="{{asset('admin/dist/js/demo.js')}}"></script>
-<!-- AdminLTE dashboard demo (This is only for demo purposes) -->
 <script src="{{asset('admin/dist/js/pages/dashboard.js')}}"></script>
 </body>
 </html>

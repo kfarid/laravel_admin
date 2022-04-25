@@ -18,6 +18,7 @@ class RouteServiceProvider extends ServiceProvider
      * @var string
      */
     public const HOME = '/home';
+    public const DASH = '/admin_panel';
 
     /**
      * Define your route model bindings, pattern filters, etc.
