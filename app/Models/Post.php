@@ -2,9 +2,11 @@
 
 namespace App\Models;
 
+
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+
 
 class Post extends Model
 {
@@ -15,21 +17,32 @@ class Post extends Model
         'text',
         'img',
         'cat_id',
+        'slug'
     ];
 
     protected $dates = ['deleted_at'];
 
     public function category()
     {
-        return $this->belongsTo('App\Models\Category','cat_id');
+        return $this->belongsTo('App\Models\Category', 'cat_id');
     }
 
-  /*  public function user(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    public function user()
     {
         return $this->belongsTo(User::class);
     }
-    public function scopeFeatured($query){
+
+    public function tags()
+    {
+        return $this->belongsToMany(Tag::class);
+    }
+
+    public function scopeFeatured($query)
+    {
         return $query->where('featured', true);
-    }*/
+    }
+
+
+
 
 }
