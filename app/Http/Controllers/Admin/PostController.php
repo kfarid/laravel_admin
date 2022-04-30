@@ -91,10 +91,11 @@ class PostController extends Controller
     public function update(Request $request, Post $post)
     {
         $post->title = $request->title;
-        $post->img = '/files/'.$request->img;
+        $post->img = $request->img;
         $post->text = $request->text;
         $post->cat_id = $request->cat_id;
-        $post->save();
+        /*$post->save();*/
+        $post->update();
 
         return redirect()->back()->withSuccess('Post perfectly edited');
     }

@@ -11,16 +11,9 @@
 <body class="antialiased">
 <div class="container m-0">
     <div class="col-sm-12 row">
-        @foreach($posts as $post)
-            <div class="card m-2 row" style="width: 18rem;">
-                <img src="{{$post->img}}" class="card-img-top" alt="..." style="height: 238px;width: 262px;">
-                <div class="card-body">
-                    <h5 class="card-title">{{$post->title}}</h5>
-                    <p>{!! Str::limit($post->text, 20, ' ...') !!}</p>
-                    <a href="{{route('show',['slug' => $post->slug])}}" class="btn btn-primary">Go somewhere</a>
-                </div>
-            </div>
-        @endforeach
+        <h1>{{$posts->title}}</h1>
+        <br>
+        <p>{!! $posts->text !!}</p>
     </div>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"

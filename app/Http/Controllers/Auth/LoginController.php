@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
+use http\Env\Request;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Support\Facades\Auth;
 
@@ -29,8 +30,14 @@ class LoginController extends Controller
      */
 
 
-    protected $redirectTo = RouteServiceProvider::DASH;
-
+    /*protected $redirectTo = RouteServiceProvider::DASH;*/
+    protected function redirectTo()
+    {
+        if (auth()->user()->hasRole('admin')) {
+            return '/admin_panel';
+        }
+        return '/welcome';
+    }
 
     /**
      * Create a new controller instance.
