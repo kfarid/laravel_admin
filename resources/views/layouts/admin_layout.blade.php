@@ -170,6 +170,27 @@
                                         </li>
                                     </ul>
                                 </li>
+                                <li class="nav-item ">
+                                    <a href="#" class="nav-link">
+                                        <i class="nav-icon fas fa-align-left"></i>
+                                        <p>
+                                            Contact
+                                            <i class="right fas fa-angle-left"></i>
+                                        </p>
+                                    </a>
+                                    <ul class="nav nav-treeview">
+                                        <li class="nav-item">
+                                            <a href="{{route('contact.index')}}" class="nav-link">
+                                                <p>All Contact</p>
+                                            </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a href="{{route('contact.create')}}" class="nav-link">
+                                                <p>Create Contact</p>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>
 
                             </ul>
                         </nav>

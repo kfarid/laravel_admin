@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,21 +14,27 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::redirect('/', 'login');
+Route::redirect('/login', 'login');
 Route::get('home',function () {
     return view('home');
 });
 
 Auth::routes();
 
-
-Route::get('welcome',[\App\Http\Controllers\Admin\PageController::class,'index']);
-Route::get('show/{slug}',[\App\Http\Controllers\Admin\PageController::class,'show'])->name('show');
+/*
+Route::get('/',[\App\Http\Controllers\Admin\PageController::class,'index']);
+Route::get('show/{slug}',[\App\Http\Controllers\Admin\PageController::class,'show'])->name('show');*/
 
 Route::middleware( ['role:admin'])->prefix('admin_panel')->group( function () {
     Route::get('/',[\App\Http\Controllers\Admin\HomeController::class,'index'])->name('homeAdmin');
     Route::resource('category', \App\Http\Controllers\Admin\CategoryController::class);
     Route::resource('post', \App\Http\Controllers\Admin\PostController::class);
     Route::resource('user', \App\Http\Controllers\Admin\UserController::class);
+    Route::resource('contact', \App\Http\Controllers\Admin\ContactController::class);
 
+});
+
+Route::prefix('/')->group(function (){
+    Route::get('/',[\App\Http\Controllers\Admin\PageController::class,'index'])->name('index');
+    Route::get('show/{slug}',[\App\Http\Controllers\Admin\PageController::class,'show'])->name('show');
 });
