@@ -1,6 +1,6 @@
 @extends('layouts.admin_layout')
 
-@section('title', 'All Post')
+@section('title', 'Contact Us Message')
 
 @section('content')
 
@@ -10,7 +10,7 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1 class="m-0">All Post </h1>
+                        <h1 class="m-0">Contact Us Message </h1>
                     </div><!-- /.col -->
                 </div><!-- /.row -->
                 @if (session('success'))
@@ -39,45 +39,51 @@
                                         <th style="width: 5%">
                                             ID
                                         </th>
-                                        <th style="width: 25%">
+                                        <th style="width: 20%">
                                             Name
                                         </th>
-                                        <th style="width: 25%">
-                                            Date Added
+                                        <th style="width: 20%">
+                                            Email
                                         </th>
-                                        <th style="width: 25%">
-                                            Category
+                                        <th style="width: 20%">
+                                            Subject
+                                        </th>
+                                        <th style="width: 20%">
+                                            Date
                                         </th>
                                         <th style="width: 40%">
                                         </th>
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    @foreach($posts as $post)
+                                    @foreach($contacts as $contact)
                                         <tr>
                                             <td>
-                                                {{$post['id']}}
+                                                {{$contact['id']}}
                                             </td>
                                             <td>
-                                                {{$post['title']}}
+                                                {{$contact['name']}}
                                             </td>
                                             <td>
-                                                {{$post['created_at']}}
+                                                {{$contact['email']}}
                                             </td>
                                             <td>
-                                                {{$post->category['title']}}
+                                                {{$contact['subject']}}
+                                            </td>
+                                            <td>
+                                                {{$contact['created_at']}}
                                             </td>
                                             <td class="project-actions text-right">
-                                                @if(auth()->user()->can('edit'))
+                                                @if(auth()->user()->can('show'))
                                                     <a class="btn btn-info btn-sm"
-                                                       href="{{route('post.edit',$post['id'])}}">
-                                                        <i class="fas fa-pencil-alt">
+                                                       href="{{route('contactform.show',$contact['id'])}}">
+                                                        <i class="fas fa-eye">
                                                         </i>
-                                                        Edit
+                                                        Show
                                                     </a>
                                                 @endif
                                                 @if(auth()->user()->can('delete'))
-                                                    <form action="{{ route('post.destroy', $post['id']) }}"
+                                                    <form action="{{route('contactform.destroy',$contact->id)}}"
                                                           method="POST"
                                                           style="display:inline-block;">
                                                         @csrf

@@ -46,6 +46,22 @@
                 <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
             </li>
         </ul>
+
+        <ul class="navbar-nav ml-auto">
+            <li>
+                <div class="nav-item">
+                    <a class="nav-link" href="{{ route('logout') }}" role="button"
+                       onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">
+                        <i class="fas fa-thin fa-arrow-right-from-bracket"></i>
+                    </a>
+
+                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                        @csrf
+                    </form>
+                </div>
+            </li>
+        </ul>
     </nav>
 
     <!-- /.navbar -->
@@ -74,22 +90,11 @@
                     <div class="os-content" style="padding: 0px 8px; height: 100%; width: 100%;">
                         <!-- Sidebar user panel (optional) -->
                         <div class="user-panel mt-3 pb-3 mb-3 d-flex">
-                            <div class="info" style="color: white; display: inline-block" >
+                            <div class="info" style="color: white; display: inline-block">
                                 <i class="nav-icon fas fa-user"></i>
                             </div>
-                            <div class="info"  style="display: inline-block">
+                            <div class="info" style="display: inline-block">
                                 <a href="#" class="d-block">{{\Illuminate\Support\Facades\Auth::user()->name}}</a>
-                            </div>
-                            <div class="info d-flex">
-                                <a  href="{{ route('logout') }}"
-                                   onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
-                                    <i class="fas fa-thin fa-arrow-right-from-bracket"></i>
-                                </a>
-
-                                <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                                    @csrf
-                                </form>
                             </div>
                         </div>
 
@@ -116,16 +121,20 @@
                                         </p>
                                     </a>
                                     <ul class="nav nav-treeview">
-                                        <li class="nav-item">
-                                            <a href="{{route('post.index')}}" class="nav-link">
-                                                <p>All Blog</p>
-                                            </a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a href="{{route('post.create')}}" class="nav-link">
-                                                <p>Create Blog</p>
-                                            </a>
-                                        </li>
+                                        @if(auth()->user()->can('show'))
+                                            <li class="nav-item">
+                                                <a href="{{route('post.index')}}" class="nav-link">
+                                                    <p>All Blog</p>
+                                                </a>
+                                            </li>
+                                        @endif
+                                        @if(auth()->user()->can('add'))
+                                            <li class="nav-item">
+                                                <a href="{{route('post.create')}}" class="nav-link">
+                                                    <p>Create Blog</p>
+                                                </a>
+                                            </li>
+                                        @endif
                                     </ul>
                                 </li>
                                 <li class="nav-item ">
@@ -137,21 +146,26 @@
                                         </p>
                                     </a>
                                     <ul class="nav nav-treeview">
-                                        <li class="nav-item">
-                                            <a href="{{route('category.index')}}" class="nav-link">
-                                                <p>All Category</p>
-                                            </a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a href="{{route('category.create')}}" class="nav-link">
-                                                <p>Create Category</p>
-                                            </a>
-                                        </li>
+                                        @if(auth()->user()->can('show'))
+                                            <li class="nav-item">
+                                                <a href="{{route('category.index')}}" class="nav-link">
+                                                    <p>All Category</p>
+                                                </a>
+                                            </li>
+                                        @endif
+                                        @if(auth()->user()->can('add'))
+                                            <li class="nav-item">
+                                                <a href="{{route('category.create')}}" class="nav-link">
+                                                    <p>Create Category</p>
+                                                </a>
+                                            </li>
+                                        @endif
                                     </ul>
                                 </li>
+                                @role('admin')
                                 <li class="nav-item ">
                                     <a href="#" class="nav-link">
-                                        <i class="nav-icon fas fa-align-left"></i>
+                                        <i class="nav-icon fa-solid fa-users"></i>
                                         <p>
                                             Users
                                             <i class="right fas fa-angle-left"></i>
@@ -159,35 +173,88 @@
                                     </a>
                                     <ul class="nav nav-treeview">
                                         <li class="nav-item">
-                                            <a href="{{route('user.index')}}" class="nav-link">
-                                                <p>All User</p>
-                                            </a>
+                                            @if(auth()->user()->can('show'))
+                                                <a href="{{route('user.index')}}" class="nav-link">
+                                                    <p>All User</p>
+                                                </a>
+                                            @endif
                                         </li>
                                         <li class="nav-item">
-                                            <a href="{{route('user.create')}}" class="nav-link">
-                                                <p>Create User</p>
-                                            </a>
+                                            @if(auth()->user()->can('add'))
+                                                <a href="{{route('user.create')}}" class="nav-link">
+                                                    <p>Create User</p>
+                                                </a>
+                                            @endif
                                         </li>
                                     </ul>
                                 </li>
                                 <li class="nav-item ">
                                     <a href="#" class="nav-link">
-                                        <i class="nav-icon fas fa-align-left"></i>
+                                        <i class="nav-icon fa-solid fa-user-lock"></i>
                                         <p>
-                                            Contact
+                                            Roles
                                             <i class="right fas fa-angle-left"></i>
                                         </p>
                                     </a>
                                     <ul class="nav nav-treeview">
                                         <li class="nav-item">
-                                            <a href="{{route('contact.index')}}" class="nav-link">
-                                                <p>All Contact</p>
-                                            </a>
+                                            @if(auth()->user()->can('show'))
+                                                <a href="{{route('roles.index')}}" class="nav-link">
+                                                    <p>All Roles</p>
+                                                </a>
+                                            @endif
                                         </li>
                                         <li class="nav-item">
-                                            <a href="{{route('contact.create')}}" class="nav-link">
-                                                <p>Create Contact</p>
-                                            </a>
+                                            @if(auth()->user()->can('add'))
+                                                <a href="{{route('roles.create')}}" class="nav-link">
+                                                    <p>Create Roles</p>
+                                                </a>
+                                            @endif
+                                        </li>
+                                    </ul>
+                                </li>
+                                @endrole
+                                <li class="nav-item ">
+                                    <a href="#" class="nav-link">
+                                        <i class="nav-icon fa-solid fa-location-dot"></i>
+
+                                        <p>
+                                            Address
+                                            <i class="right fas fa-angle-left"></i>
+                                        </p>
+                                    </a>
+                                    <ul class="nav nav-treeview">
+                                        <li class="nav-item">
+                                            @if(auth()->user()->can('show'))
+                                                <a href="{{route('contact.index')}}" class="nav-link">
+                                                    <p>All Address</p>
+                                                </a>
+                                            @endif
+                                        </li>
+                                        <li class="nav-item">
+                                            @if(auth()->user()->can('add'))
+                                                <a href="{{route('contact.create')}}" class="nav-link">
+                                                    <p>Create Address</p>
+                                                </a>
+                                            @endif
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li class="nav-item ">
+                                    <a href="#" class="nav-link">
+                                        <i class="nav-icon fa-solid fa-message"></i>
+                                        <p>
+                                            Contact Us
+                                            <i class="right fas fa-angle-left"></i>
+                                        </p>
+                                    </a>
+                                    <ul class="nav nav-treeview">
+                                        <li class="nav-item">
+                                            @if(auth()->user()->can('show'))
+                                                <a href="{{route('contactform.index')}}" class="nav-link">
+                                                    <p>Message</p>
+                                                </a>
+                                            @endif
                                         </li>
                                     </ul>
                                 </li>

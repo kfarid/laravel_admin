@@ -30,10 +30,12 @@ class UserController extends Controller
      */
     public function create()
     {
+        $roles = Role::orderBy('name')->get();
         $users = User::orderBy('created_at', 'desc')->get();
 
         return view('admin.user.create', [
             'users' => $users,
+            'roles' => $roles
         ]);
     }
 
@@ -49,6 +51,9 @@ class UserController extends Controller
         $user->name = $request->name;
         $user->email = $request->email;
         $user->password = Hash::make($request->password);
+        $role = Role::find($request->role_id);
+
+        $user->syncRoles([$role->name]);
         $user->save();
 
         return redirect()->back()->withSuccess('User perfectly added');
@@ -73,8 +78,10 @@ class UserController extends Controller
      */
     public function edit(User $user)
     {
+        $roles = Role::orderBy('name')->get();
         return view('admin.user.edit', [
-            'user' => $user
+            'user' => $user,
+            'roles' => $roles
         ]);
     }
 
@@ -91,7 +98,11 @@ class UserController extends Controller
         $user->email = $request->email;
         $user->password = Hash::make($request->password);
         $user->assignRole('user');
-        $user->save();
+
+        $role = Role::find($request->role_id);
+
+        $user->syncRoles([$role->name]);
+        $user->update();
 
         return redirect()->back()->withSuccess('User perfectly edited');
     }

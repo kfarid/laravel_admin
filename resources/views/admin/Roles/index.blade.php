@@ -1,6 +1,6 @@
 @extends('layouts.admin_layout')
 
-@section('title', 'All Post')
+@section('title', 'All Roles')
 
 @section('content')
 
@@ -10,7 +10,7 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1 class="m-0">All Post </h1>
+                        <h1 class="m-0">All User</h1>
                     </div><!-- /.col -->
                 </div><!-- /.row -->
                 @if (session('success'))
@@ -39,56 +39,38 @@
                                         <th style="width: 5%">
                                             ID
                                         </th>
-                                        <th style="width: 25%">
+                                        <th style="width: 30%">
                                             Name
-                                        </th>
-                                        <th style="width: 25%">
-                                            Date Added
-                                        </th>
-                                        <th style="width: 25%">
-                                            Category
                                         </th>
                                         <th style="width: 40%">
                                         </th>
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    @foreach($posts as $post)
+                                    @foreach($roles as $r)
                                         <tr>
                                             <td>
-                                                {{$post['id']}}
+                                                {{$r['id']}}
                                             </td>
                                             <td>
-                                                {{$post['title']}}
-                                            </td>
-                                            <td>
-                                                {{$post['created_at']}}
-                                            </td>
-                                            <td>
-                                                {{$post->category['title']}}
+                                                {{$r['name']}}
                                             </td>
                                             <td class="project-actions text-right">
-                                                @if(auth()->user()->can('edit'))
-                                                    <a class="btn btn-info btn-sm"
-                                                       href="{{route('post.edit',$post['id'])}}">
-                                                        <i class="fas fa-pencil-alt">
+                                                <a class="btn btn-info btn-sm"
+                                                   href="{{route('roles.edit',$r['id'])}}">
+                                                    <i class="fas fa-pencil-alt">
+                                                    </i>
+                                                    Edit
+                                                </a>
+                                                <form action="{{ route('roles.destroy', $r['id']) }}" method="POST" style="display:inline-block;">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="submit" class="btn btn-danger btn-sm delete-btn">
+                                                        <i class="fas fa-trash">
                                                         </i>
-                                                        Edit
-                                                    </a>
-                                                @endif
-                                                @if(auth()->user()->can('delete'))
-                                                    <form action="{{ route('post.destroy', $post['id']) }}"
-                                                          method="POST"
-                                                          style="display:inline-block;">
-                                                        @csrf
-                                                        @method('DELETE')
-                                                        <button type="submit" class="btn btn-danger btn-sm delete-btn">
-                                                            <i class="fas fa-trash">
-                                                            </i>
-                                                            Delete
-                                                        </button>
-                                                    </form>
-                                                @endif
+                                                        Delete
+                                                    </button>
+                                                </form>
                                             </td>
                                         </tr>
                                     @endforeach

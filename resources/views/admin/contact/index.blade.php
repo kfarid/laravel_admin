@@ -68,12 +68,15 @@
                                                 {{$c->phone}}
                                             </td>
                                             <td class="project-actions text-right">
+                                                @if(auth()->user()->can('edit'))
                                                 <a class="btn btn-info btn-sm"
                                                    href="{{route('contact.edit', $c->id)}}">
                                                     <i class="fas fa-pencil-alt">
                                                     </i>
                                                     Edit
                                                 </a>
+                                                @endif
+                                                    @if(auth()->user()->can('delete'))
                                                 <form action="{{ route('contact.destroy', $c->id) }}" method="POST"
                                                       style="display:inline-block;">
                                                     @csrf
@@ -84,6 +87,7 @@
                                                         Delete
                                                     </button>
                                                 </form>
+                                                    @endif
                                             </td>
                                         </tr>
                                     @endforeach

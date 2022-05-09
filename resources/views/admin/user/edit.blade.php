@@ -42,12 +42,20 @@
                                     <div class="form-group">
                                         <label for="exampleInputEmail1">Email</label>
                                         <input type="email" value="{{$user['email']}}" name="email" class="form-control" id="exampleInputEmail1"
-                                               placeholder="Enter email" required>
+                                               placeholder="Enter email">
                                     </div>
                                     <div class="form-group">
                                         <label for="exampleInputEmail1">Password</label>
                                         <input type="password" value="{{$user['pssword']}}" name="email" class="form-control" id="exampleInputEmail1"
-                                               placeholder="Enter password" required>
+                                               placeholder="Enter password">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="exampleFormControlSelect2">Role</label>
+                                        <select name="role_id" class="form-control" id="exampleFormControlSelect2">
+                                            @foreach($roles as $role)
+                                                <option value="{{$role['id']}}" @if($user->hasRole($role['name'])) selected @endif>{{$role['name']}}</option>
+                                            @endforeach
+                                        </select>
                                     </div>
                                 </div>
 

@@ -62,12 +62,15 @@
                                                 </small>
                                             </td>
                                             <td class="project-actions text-right">
+                                                @if(auth()->user()->can('edit'))
                                                 <a class="btn btn-info btn-sm"
                                                    href="{{route('category.edit',$category['id'])}}">
                                                     <i class="fas fa-pencil-alt">
                                                     </i>
                                                     Edit
                                                 </a>
+                                                @endif
+                                                    @if(auth()->user()->can('delete'))
                                                 <form action="{{ route('category.destroy', $category['id']) }}" method="POST" style="display:inline-block;">
                                                     @csrf
                                                     @method('DELETE')
@@ -77,6 +80,7 @@
                                                         Delete
                                                     </button>
                                                 </form>
+                                                    @endif
                                             </td>
                                         </tr>
                                     @endforeach
